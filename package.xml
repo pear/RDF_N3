@@ -25,7 +25,8 @@ http://www.wiwiss.fu-berlin.de/suhl/bizer/rdfapi/.</description>
     <license>LGPL</license>
     <state>alpha</state>
     <notes>- propagate PEAR errors to the user
-- cosmetic fixes</notes>
+- cosmetic fixes
+- fixed contructor name in parser class</notes>
     <deps>
       <dep type="php" rel="ge" version="4.2.0" optional="no"/>
       <dep type="pkg" rel="ge" version="1.0b1" optional="no">PEAR</dep>
@@ -58,7 +59,8 @@ http://www.wiwiss.fu-berlin.de/suhl/bizer/rdfapi/.</description>
       <license>LGPL</license>
       <state>alpha</state>
       <notes>- propagate PEAR errors to the user
-- cosmetic fixes</notes>
+- cosmetic fixes
+- fixed contructor name in parser class</notes>
     </release>
     <release>
       <version>0.2.0alpha1</version>
