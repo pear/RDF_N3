@@ -74,8 +74,8 @@ class RDF_N3_Serializer extends RDF_Object
      */
     function &serialize(&$m)
     {
-        if (is_a($m, 'RDF_Model_MDB')) {
-            $m = $m->getMemModel();
+        if (!is_a($m, 'RDF_Model_Memory')) {
+            $m =& $m->getMemModel();
         }
 
         $this->reset();
@@ -255,6 +255,9 @@ class RDF_N3_Serializer extends RDF_Object
     function doResource(&$r)
     {
         $ts = $this->model->find($r, null, null);
+        if (PEAR::isError($ts)) {
+            return $ts;
+        }
         if (count($ts->triples) == 0) {
             return;
         }
@@ -281,9 +284,12 @@ class RDF_N3_Serializer extends RDF_Object
         if ( is_a($r, 'RDF_Resource') ) {
             if ( is_a($r, 'RDF_BlankNode') ) { 
                 //test, if this blanknode is referenced somewhere
-                $rbn=$this->model->find(null, null, $r);
+                $rbn = $this->model->find(null, null, $r);
+                if (PEAR::isError($rbn)) {
+                    return $rbn;
+                }
 
-                if (count($rbn->triples)>0 | !RDF_N3SER_BNODE_SHORT) {
+                if (count($rbn->triples) > 0 | !RDF_N3SER_BNODE_SHORT) {
                     $out.='_:'.$r->getLabel();
                 } else {
                     $out.='[ ';

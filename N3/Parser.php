@@ -51,7 +51,7 @@ class RDF_N3_Parser extends RDF_Object
      *
      * @access public
      */
-    function RDF_Sytanx_N3Parser()
+    function RDF_N3_Parser()
     {
         // Regular expressions:
         $Name = '[A-Za-z0-9_@\.]+[^\.,;\[\] ]';
@@ -189,12 +189,15 @@ class RDF_N3_Parser extends RDF_Object
             $o = $this->toRDFNode($t[2], $t);
 
             $new_statement =& RDF_Statement::factory($s, $p, $o);
+            if (PEAR::isError($new_statement)) {
+                return $new_statement;
+            }
 
-            $m->add($new_statement);
-            // print "(".$t[0].", ".$t[1].", ".$t[2].")";
+            $result = $m->add($new_statement);
+            if (PEAR::isError($result)) {
+                return $result;
+            }
         }
-        // return [[eep.Article(t[0]), eep.Article(t[1]), eep.Article(t[2])]
-        // for t in n3tolist(s)]
         return $m;
     }
 
@@ -353,17 +356,10 @@ class RDF_N3_Parser extends RDF_Object
         if (strlen($s) == 0) die('Document has no content!');
         $s = str_replace("\r\n", "\n", $s);
         $s = str_replace("\r", "\n", $s);
-        // $lines=explode("\n",$s);
-        // $reallines=array_filter($lines, array($this, "notComment"));
-        // print "LINES: ".join($reallines, " ")." :LINES\n";
-        // array_walk($reallines, array($this, "trimLine"));
-        // $res=array();
-        // foreach ($reallines as $l) {
-        // preg_match_all($this->Tokens, $l, $newres);
-        // $res=$this->array_concat($res,$newres[0]);
-        // }
+
         $res = array();
         $newres = array();
+
         preg_match_all($this->Tokens, $s, $newres);
 
         $res = $this->array_concat($res, $newres[0]);
@@ -933,15 +929,18 @@ class RDF_N3_Parser extends RDF_Object
                 }
             }
 
-            $new_Literal =& RDF_Literal::factory(substr($s, 1, -1), $lang);
-            if (isset($dtype)) {
-                $new_Literal->setDatatype($dtype);
+            $new_literal =& RDF_Literal::factory(substr($s, 1, -1), $lang);
+            if (PEAR::isError($new_literal)) {
+                return $new_literal;
             }
-            return $new_Literal;
+            if (isset($dtype)) {
+                $new_literal->setDatatype($dtype);
+            }
+            return $new_literal;
         }
 
         if (strstr($s, '_' . RDF_BNODE_PREFIX)) {
-            if (($this->FixBnodes) OR (!array_search($s, $this->bNodeMap))) {
+            if (($this->FixBnodes) || (!array_search($s, $this->bNodeMap))) {
                 return RDF_BlankNode::factory(substr($s, 1, -1));
             } else {
                 return RDF_BlankNode::factory(substr(array_search($s, $this->bNodeMap), 2));
