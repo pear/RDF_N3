@@ -189,12 +189,12 @@ class RDF_N3_Serializer extends RDF_Object
         } ;
     }
 
-    /* ==================== Private Methods from here ==================== */
+    /* ==================== protected Methods from here ==================== */
 
     /**
      * Readies this object for serializing another model
      *
-     * @access private
+     * @access protected
      * @param void
      * @returns void
      */
@@ -221,7 +221,7 @@ class RDF_N3_Serializer extends RDF_Object
      * Outputs
      *
      * @prefix lines.
-     * @access private
+     * @access protected
      * @param array $n
      * @returns void
      */
@@ -247,7 +247,7 @@ class RDF_N3_Serializer extends RDF_Object
      * Fill in $resourcetext for a single resource.
      * Will recurse into Objects of triples, but should never look ? (really?)
      *
-     * @access private
+     * @access protected
      * @param object Resource $r
      * @returns boolean
      */
@@ -359,7 +359,7 @@ class RDF_N3_Serializer extends RDF_Object
      * Format a single URI
      *
      * @param string $s
-     * @access private
+     * @access protected
      * @return void
      */
     function doURI(&$r, &$out)
@@ -381,7 +381,7 @@ class RDF_N3_Serializer extends RDF_Object
      *
      * @param string $s
      * @param string $a
-     * @access private
+     * @access protected
      * @return void
      */
     function fixAnon($t, $a)

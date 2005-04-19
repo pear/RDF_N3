@@ -224,12 +224,12 @@ class RDF_N3_Parser extends RDF_Object
         return $this->parse2model($input);
     }
 
-    /* ==================== Private Methods from here ==================== */
+    /* ==================== protected Methods from here ==================== */
     // General list processing functions
     /**
      * Returns FALSE if argument is a whitespace character
      *
-     * @access private
+     * @access protected
      * @param string $s
      */
     function isWS($s)
@@ -244,7 +244,7 @@ class RDF_N3_Parser extends RDF_Object
     /**
      * Callback function for trimming whitespace from lines
      *
-     * @access private
+     * @access protected
      * @param string
      */
     function trimLine(&$l, $i)
@@ -255,7 +255,7 @@ class RDF_N3_Parser extends RDF_Object
     /**
      * Returns true if the string is not a comment
      *
-     * @access private
+     * @access protected
      * @param string $s
      * @returns boolean
      */
@@ -273,7 +273,7 @@ class RDF_N3_Parser extends RDF_Object
     /**
      * Removes all whitespace tokens from list
      *
-     * @access private
+     * @access protected
      * @param array $list
      */
     function filterWs($list)
@@ -288,7 +288,7 @@ class RDF_N3_Parser extends RDF_Object
      * e.g. getSpan(['p', 'q', 'r'], 1, 2) gives (['q'], ['p', 'r'])
      *
      * @return array
-     * @access private
+     * @access protected
      * @param array $list
      * @param integer $start
      * @param integer $end
@@ -310,7 +310,7 @@ class RDF_N3_Parser extends RDF_Object
      * @param array $a
      * @param array $b
      * @returns array
-     * @access private
+     * @access protected
      */
     function array_concat($a, $b)
     {
@@ -324,7 +324,7 @@ class RDF_N3_Parser extends RDF_Object
      * @param array $list
      * @param string $item
      * @returns array
-     * @access private
+     * @access protected
      */
     function posns($list, $item)
     {
@@ -347,7 +347,7 @@ class RDF_N3_Parser extends RDF_Object
      *
      * @param string $s
      * @returns array
-     * @access private
+     * @access protected
      */
     function toke($s)
     {
@@ -375,7 +375,7 @@ class RDF_N3_Parser extends RDF_Object
      * @param integer $start
      * @param integer $end
      * @returns array
-     * @access private
+     * @access protected
      */
     function listify($list, $start, $end)
     {
@@ -396,7 +396,7 @@ class RDF_N3_Parser extends RDF_Object
      * Returns an array with prefixes=>namespace mappings
      *
      * @param array $list
-     * @access private
+     * @access protected
      * @returns array
      */
     function getPrefixes($list)
@@ -425,7 +425,7 @@ class RDF_N3_Parser extends RDF_Object
      * Callback function for replacing "a" elements with the right RDF uri.
      *
      * @param string $l
-     * @access private
+     * @access protected
      */
     function replace_a_type(&$l, $p)
     {
@@ -438,7 +438,7 @@ class RDF_N3_Parser extends RDF_Object
      * Callback function for replacing "=" elements with the right DAML+OIL uri.
      *
      * @param string $l
-     * @access private
+     * @access protected
      */
     function replace_equal(&$l, $p)
     {
@@ -451,7 +451,7 @@ class RDF_N3_Parser extends RDF_Object
      * Callback function for replacing "this" elements with the right RDF uri.
      *
      * @param string $l
-     * @access private
+     * @access protected
      */
     function replace_this($l, $p)
     {
@@ -467,7 +467,7 @@ class RDF_N3_Parser extends RDF_Object
      * @param array $prefixes
      * @param array $list
      * @returns $list
-     * @access private
+     * @access protected
      */
     function applyStuff($prefixes, $list)
     {
@@ -545,7 +545,7 @@ class RDF_N3_Parser extends RDF_Object
      *
      * @param array $list
      * @returns array
-     * @access private
+     * @access protected
      */
     function getStatements($list)
     {
@@ -575,7 +575,7 @@ class RDF_N3_Parser extends RDF_Object
      *
      * @param array $list
      * @returns array
-     * @acces private
+     * @acces protected
      */
     function getPovs($list)
     {
@@ -597,7 +597,7 @@ class RDF_N3_Parser extends RDF_Object
      * * Gets a list of triples with same predicate
      * e.g. :Gunnar :likes "Cheese", "Wine".
      *
-     * @access private
+     * @access protected
      * @param array $list
      * @returns array
      */
@@ -647,7 +647,7 @@ class RDF_N3_Parser extends RDF_Object
      *
      * @param array $list
      * @returns array
-     * @access private
+     * @access protected
      */
     function statementize($list)
     {
@@ -722,7 +722,7 @@ class RDF_N3_Parser extends RDF_Object
      * @param string $schar
      * @param string $echar
      * @returns array
-     * @access private
+     * @access protected
      */
     function doLists($list, $schar, $echar)
     {
@@ -768,7 +768,7 @@ class RDF_N3_Parser extends RDF_Object
      *
      * @param array
      * @returns array
-     * @access private
+     * @access protected
      */
     function listStuff($list)
     {
@@ -782,7 +782,7 @@ class RDF_N3_Parser extends RDF_Object
     /**
      * Generates a new node id.
      *
-     * @access private
+     * @access protected
      * @returns string
      */
     function bnodeID()
@@ -794,7 +794,7 @@ class RDF_N3_Parser extends RDF_Object
     /**
      * This makes bNodes out of variables like _:a etc.
      *
-     * @access private
+     * @access protected
      * @param array $list
      * @returns array
      */
@@ -817,7 +817,7 @@ class RDF_N3_Parser extends RDF_Object
     /**
      * This makes [ ] lists into bnodes.
      *
-     * @access private
+     * @access protected
      * @param array $list
      * @return array
      */
@@ -845,7 +845,7 @@ class RDF_N3_Parser extends RDF_Object
      *
      * @param string $s
      * @returns array
-     * @access private
+     * @access protected
      */
     function n3tolist($s)
     {
@@ -906,7 +906,7 @@ class RDF_N3_Parser extends RDF_Object
     /**
      * Constructs a RAP RDFNode from URI/Literal/Bnode
      *
-     * @access private
+     * @access protected
      * @param string $s
      * @returns object RDFNode
      */
