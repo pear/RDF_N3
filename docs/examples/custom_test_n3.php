@@ -45,7 +45,7 @@ function echo_string_with_linenumbers ($input_string)
 if (!isset($_POST['submit']) OR (strlen($_POST['RDF']) > 100000000)) {
     ?>
 
-<form method="post" action="<?php echo $HTTP_SERVER_VARS['PHP_SELF'];
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME'];
     ?>"> 
 <p>This is an online demo of <a href="http://www.wiwiss.fu-berlin.de/suhl/bizer/rdfapi/index.html">RAP
     - RDF API for PHP V0.8</a> . You can paste n3 code into the text field below
@@ -199,7 +199,7 @@ if (!isset($_POST['submit']) OR (strlen($_POST['RDF']) > 100000000)) {
     // Load and parse document
     $model = $n3pars->parse2model($rdfInput);
     // Set the base URI of the model
-    $model->setBaseURI("http://www3.wiwiss.fu-berlin.de" . $HTTP_SERVER_VARS['PHP_SELF'] . "/DemoModel#");
+    $model->setBaseURI("http://www3.wiwiss.fu-berlin.de" . $_SERVER['SCRIPT_NAME'] . "/DemoModel#");
     // Execute query on model if submitted
     if ($_POST['query_subject'] != '' OR $_POST['query_predicate'] != '' OR $_POST['query_object'] != '') {
         $comment_string = "<BR><H3>The following query has been executed:</H3><BR>";
@@ -279,7 +279,7 @@ if (!isset($_POST['submit']) OR (strlen($_POST['RDF']) > 100000000)) {
         echo_string_with_linenumbers($model->toStringIncludingTriples());
     } ;
 
-    ?> <center><a href="<?php echo $HTTP_SERVER_VARS['PHP_SELF'] ?>"><h2>Go back to input form.</h2></a></center><?php
+    ?> <center><a href="<?php echo $_SERVER['SCRIPT_NAME'] ?>"><h2>Go back to input form.</h2></a></center><?php
 } // end of "form submitted"
 
 ?>
