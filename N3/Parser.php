@@ -264,10 +264,9 @@ class RDF_N3_Parser extends RDF_Object
         if ($s == "") {
             return false;
         }
-        $N3Comment = '^[ \t]*\#';
+        $N3Comment = '/^[ \t]*\#/';
 
-        if (ereg($N3Comment, $s)) return false;
-        else return true;
+        return !preg_match($N3Comment, $s);
     }
 
     /**
@@ -518,7 +517,7 @@ class RDF_N3_Parser extends RDF_Object
                             // print "++$lit++";
                             $lit = str_replace('\n', '\\n', $lit);
 
-                            $lit = ereg_replace('[^\\]"', '\\"', $lit);
+                            $lit = preg_replace('/[^\\]"/', '\\"', $lit);
 
                             $list[$i] = '"' . $lit . '"';
                         } else {
