@@ -36,7 +36,7 @@
  * @access public
  */
 
-class RDF_N3_Parser extends RDF_Object
+class RDF_N3_Parser
 {
     /* ==================== Variables ==================== */
 
@@ -189,14 +189,8 @@ class RDF_N3_Parser extends RDF_Object
             $o = $this->toRDFNode($t[2], $t);
 
             $new_statement =& RDF_Statement::factory($s, $p, $o);
-            if (PEAR::isError($new_statement)) {
-                return $new_statement;
-            }
 
             $result = $m->add($new_statement);
-            if (PEAR::isError($result)) {
-                return $result;
-            }
         }
         return $m;
     }
@@ -929,9 +923,6 @@ class RDF_N3_Parser extends RDF_Object
             }
 
             $new_literal =& RDF_Literal::factory(substr($s, 1, -1), $lang);
-            if (PEAR::isError($new_literal)) {
-                return $new_literal;
-            }
             if (isset($dtype)) {
                 $new_literal->setDatatype($dtype);
             }
