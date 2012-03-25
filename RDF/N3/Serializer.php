@@ -72,10 +72,10 @@ class RDF_N3_Serializer
      * @return string
      * @access public
      */
-    function &serialize(&$m)
+    function serialize($m)
     {
         if (!is_a($m, 'RDF_Model_Memory')) {
-            $m =& $m->getMemModel();
+            $m = $m->getMemModel();
         }
 
         $this->reset();
@@ -174,7 +174,7 @@ class RDF_N3_Serializer
      * @return boolean
      * @access public
      */
-    function saveAs(&$model, $filename)
+    function saveAs($model, $filename)
     {
         // serialize model
         $n3 = $this->serialize($model);
@@ -225,7 +225,7 @@ class RDF_N3_Serializer
      * @param array $n
      * @returns void
      */
-    function doNamespaces(&$n)
+    function doNamespaces($n)
     {
         $c = 0;
         foreach ($n as $ns => $v) {
@@ -252,7 +252,7 @@ class RDF_N3_Serializer
      * @returns boolean
      */
 
-    function doResource(&$r)
+    function doResource($r)
     {
         $ts = $this->model->find($r, null, null);
 
@@ -290,7 +290,7 @@ class RDF_N3_Serializer
                     $out.='[ ';
                 };
             } else { 
-                $this->doURI($r, $out);
+                $out = $this->doURI($r, $out);
             }
         }
 
@@ -306,7 +306,7 @@ class RDF_N3_Serializer
                 $out .= ' , ';
             } else {
                 if ($lastp != '') $out .= ' ; ';
-                $this->doURI($p, $out);
+                $out = $this->doURI($p, $out);
                 $lastp = $p;
             }
 
@@ -336,7 +336,7 @@ class RDF_N3_Serializer
                 if (is_a($o, 'RDF_BlankNode')) {
                     $out .='_:'.$o->getLabel();
                 } else {
-                    $this->doURI($o, $out);
+                    $out = $this->doURI($o, $out);
                 }
             }
         }
@@ -357,7 +357,7 @@ class RDF_N3_Serializer
      * @access protected
      * @return void
      */
-    function doURI(&$r, &$out)
+    function doURI($r, $out)
     {
         if ($r->getURI() == 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type') {
             $out .= 'a';
@@ -369,6 +369,7 @@ class RDF_N3_Serializer
             // Will this ever happen?
             $out .= $r->getURI();
         }
+        return  $out;
     }
 
     /**
@@ -386,5 +387,3 @@ class RDF_N3_Serializer
         return $a . $t;
     }
 }
-
-?>

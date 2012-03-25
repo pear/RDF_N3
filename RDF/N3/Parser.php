@@ -179,7 +179,7 @@ class RDF_N3_Parser
 
     function parse2model($s)
     {
-        $m =& new RDF_Model_Memory();
+        $m = new RDF_Model_Memory();
         // """Get a string, tokenize, create list, convert to Eep store."""
         $stat = $this->n3tolist($s);
 
@@ -188,7 +188,7 @@ class RDF_N3_Parser
             $p = $this->toRDFNode($t[1], $t);
             $o = $this->toRDFNode($t[2], $t);
 
-            $new_statement =& RDF_Statement::factory($s, $p, $o);
+            $new_statement = RDF_Statement::factory($s, $p, $o);
 
             $result = $m->add($new_statement);
         }
@@ -203,7 +203,7 @@ class RDF_N3_Parser
      * @throws PhpError
      * @return object Model_Memory
      */
-    function &generateModel($path)
+    function generateModel($path)
     {
         $handle = fopen($path, 'r') or die("N3 Parser: Could not open File: '$path' - Stopped parsing.");
         $done = false;
@@ -922,7 +922,7 @@ class RDF_N3_Parser
                 }
             }
 
-            $new_literal =& RDF_Literal::factory(substr($s, 1, -1), $lang);
+            $new_literal = RDF_Literal::factory(substr($s, 1, -1), $lang);
             if (isset($dtype)) {
                 $new_literal->setDatatype($dtype);
             }

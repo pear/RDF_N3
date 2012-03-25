@@ -194,8 +194,8 @@ if (!isset($_POST['submit']) OR (strlen($_POST['RDF']) > 100000000)) {
     echo "<BR><H3>Your original N3 input:</h3><BR>";
     echo_string_with_linenumbers($rdfInput);
     // Create a new Model_Memory
-    // $model =& new RDF_Model_Memory();
-    $n3pars =& new RDF_N3_Parser();
+    // $model = new RDF_Model_Memory();
+    $n3pars = new RDF_N3_Parser();
     // Load and parse document
     $model = $n3pars->parse2model($rdfInput);
     // Set the base URI of the model
@@ -253,7 +253,7 @@ if (!isset($_POST['submit']) OR (strlen($_POST['RDF']) > 100000000)) {
     // serialize model to RDF with default configuration if checked in submitted form
     if ($_POST['serialize'] == '1') {
         // Create Serializer
-        $ser =& new RDF_Serializer();
+        $ser = new RDF_Serializer();
         $msg_string = '';
         if (isset($_POST['serial_attributes']) and $_POST['serial_attributes'] == '1') {
             $ser->configUseAttributes(true);
